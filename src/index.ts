@@ -1,15 +1,17 @@
 import Koa from "koa";
 import Router from "koa-router";
-import { REDIRECT_ROUTE_PATH } from "./constants";
+import { API_PREFIX } from "./constants";
 import { serviceRedirect } from "./services/redirect";
 import { Result } from "ts-results";
+import { serviceIso } from "./services/iso";
 
 const PORT = 3000;
 
 const app = new Koa();
 const router = new Router();
 
-router.get(REDIRECT_ROUTE_PATH, serviceRedirect);
+router.get(`${API_PREFIX}/redirect`, serviceRedirect);
+router.get(`${API_PREFIX}/info/iso`, serviceIso);
 
 // Result 类型中间件
 app.use(async (ctx, next) => {

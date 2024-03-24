@@ -1,21 +1,7 @@
-import { Err, Result, Ok } from "ts-results";
+import { Err, Result } from "ts-results";
 import { RouterContext } from "koa-router";
 import { getRedirectCache } from "../cache";
-import { ControllerCtx, IProxyController } from "../AList/type";
-import { ALIST_ROOT } from "../constants";
-import { AListControllerFactory } from "../AList";
-
-async function createController(
-  basePath: string,
-): Promise<Result<Omit<IProxyController, "init">, string>> {
-  const ctx: ControllerCtx = {
-    rootUrl: ALIST_ROOT,
-    basePath,
-  };
-  const controller = AListControllerFactory(ctx);
-  await controller.init();
-  return new Ok(controller);
-}
+import { createController } from "../AList";
 
 const controllerPromise = createController("");
 async function fetch(path: string): Promise<Result<string, string>> {

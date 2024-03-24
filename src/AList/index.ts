@@ -67,7 +67,7 @@ async function fsGet(p: string, { rootUrl }: ControllerCtx) {
   }>(apiUrl, body);
 }
 
-export function AListControllerFactory(ctx: ControllerCtx): IProxyController {
+function AListControllerFactory(ctx: ControllerCtx): IProxyController {
   const join = (p: string) => path_join(ctx.basePath, p);
   async function init() {
     return new Ok(undefined);
@@ -130,4 +130,16 @@ export function AListControllerFactory(ctx: ControllerCtx): IProxyController {
   }
 
   return { init, readDir, fetchFile };
+}
+
+export async function createController(
+  basePath: string,
+): Promise<Omit<IProxyController, "init">> {
+  const ctx: ControllerCtx = {
+    rootUrl: ALIST_ROOT,
+    basePath,
+  };
+  const controller = AListControllerFactory(ctx);
+  await controller.init();
+  return controller;
 }
