@@ -16,5 +16,5 @@ export function path_join(...arr: string[]) {
   return path.join(...arr).replace(/\\/g, "/");
 }
 export function getRedirectUrl(rawPath: string) {
-  return path_join(PROXY_ROOT, `${API_PREFIX}/redirect?path=${rawPath}`);
+  return `${PROXY_ROOT}${API_PREFIX}/redirect?path=${rawPath}`;
 }

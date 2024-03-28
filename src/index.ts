@@ -1,28 +1,64 @@
 import Koa from "koa";
-import Router from "koa-router";
+import Router, { RouterContext } from "koa-router";
 import { API_PREFIX } from "./constants";
 import { serviceRedirect } from "./services/redirect";
 import { Result } from "ts-results";
-import { serviceIso } from "./services/iso";
+import {
+  serviceIso,
+  serviceIsoAddr,
+  serviceIsoName,
+  serviceIsoVersion,
+} from "./services/iso";
+import { serviceHub, serviceHubAddr, serviceHubVersion } from "./services/hub";
 
 const PORT = 3000;
 
 const app = new Koa();
 const router = new Router();
 
-router.get(`${API_PREFIX}/redirect`, serviceRedirect);
-router.get(`${API_PREFIX}/info/iso`, serviceIso);
+const define = (
+  path: string,
+  service: (
+    ctx: RouterContext,
+  ) => Promise<Result<unknown, string> | string | undefined>,
+) => {
+  router.get(path, service);
+};
+
+define(`${API_PREFIX}/redirect`, serviceRedirect);
+define(`${API_PREFIX}/info/iso_version`, serviceIsoVersion);
+define(`${API_PREFIX}/info/iso_addr`, serviceIsoAddr);
+define(`${API_PREFIX}/info/iso_name`, serviceIsoName);
+define(`${API_PREFIX}/info/iso`, serviceIso);
+define(`${API_PREFIX}/info/hub_version`, serviceHubVersion);
+define(`${API_PREFIX}/info/hub_addr`, serviceHubAddr);
+define(`${API_PREFIX}/info/hub`, serviceHub);
 
 // Result 类型中间件
 app.use(async (ctx, next) => {
-  const result: Result<unknown, string> | undefined = await next();
+  const result: Result<unknown, string> | string | undefined = await next();
+
+  const handleString = (str: string) => {
+    if (str.startsWith("http")) {
+      ctx.redirect(str);
+    } else {
+      ctx.body = str;
+    }
+  };
+
+  // 直接处理 string
+  if (typeof result === "string") {
+    handleString(result);
+    return;
+  }
+
+  // 处理 Result 类型
   if (result) {
     if (result.ok) {
       // 处理 Ok
       const res = result.val;
-      // 约定如果返回 OkImpl<string> 则进行重定向
       if (typeof res === "string") {
-        ctx.redirect(res);
+        handleString(res);
       } else {
         ctx.body = res;
       }

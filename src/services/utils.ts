@@ -4,7 +4,7 @@ import { compareVersions } from "compare-versions";
 import { getRedirectUrl, path_join } from "../utils";
 import { Iso } from "./iso";
 
-const VERSION_REGEX = /[0-9]+\.[0-9]+\.[0-9]+/;
+const VERSION_REGEX = /[0-9]+\.[0-9]+(\.[0-9]+)?/;
 export async function matchLatestVersion(
   path: string,
   extName: `.${string}`,
@@ -22,8 +22,12 @@ export async function matchLatestVersion(
 
   // 取版本号最高的
   const { name } = isoList.sort((a, b) => {
-    const versionA = a.name.match(VERSION_REGEX)?.[0];
-    const versionB = b.name.match(VERSION_REGEX)?.[0];
+    const versionA = a.name
+      .slice(undefined, -extName.length)
+      .match(VERSION_REGEX)?.[0];
+    const versionB = b.name
+      .slice(undefined, -extName.length)
+      .match(VERSION_REGEX)?.[0];
     if (versionA && versionB) {
       return compareVersions(versionB, versionA);
     } else {
@@ -33,7 +37,7 @@ export async function matchLatestVersion(
 
   return new Ok({
     name,
-    version: name.match(VERSION_REGEX)![0],
+    version: name.slice(undefined, -extName.length).match(VERSION_REGEX)![0],
     url: getRedirectUrl(path_join(path, name)),
   });
 }
