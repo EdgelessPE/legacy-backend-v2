@@ -12,3 +12,4 @@ export const HUB_UPDATE_INFO = {
   dependencies_requirement: "2.28",
   wide_gaps: ["2.28"],
 };
+export const ALPHA_TOKEN = "そうだよ";

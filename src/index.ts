@@ -10,6 +10,11 @@ import {
   serviceIsoVersion,
 } from "./services/iso";
 import { serviceHub, serviceHubAddr, serviceHubVersion } from "./services/hub";
+import {
+  serviceAlphaAddr,
+  serviceAlphaData,
+  serviceAlphaVersion,
+} from "./services/alpha";
 
 const PORT = 3000;
 
@@ -33,6 +38,9 @@ define(`${API_PREFIX}/info/iso`, serviceIso);
 define(`${API_PREFIX}/info/hub_version`, serviceHubVersion);
 define(`${API_PREFIX}/info/hub_addr`, serviceHubAddr);
 define(`${API_PREFIX}/info/hub`, serviceHub);
+define(`${API_PREFIX}/alpha/version`, serviceAlphaVersion);
+define(`${API_PREFIX}/alpha/addr`, serviceAlphaAddr);
+define(`${API_PREFIX}/alpha/data`, serviceAlphaData);
 
 // Result 类型中间件
 app.use(async (ctx, next) => {
