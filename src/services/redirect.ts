@@ -6,12 +6,7 @@ import { createController } from "../AList";
 const controllerPromise = createController("");
 async function fetch(path: string): Promise<Result<string, string>> {
   // 初始化控制器
-  const controllerRes = await controllerPromise;
-  if (controllerRes.err) {
-    return controllerRes;
-  }
-  const controller = controllerRes.unwrap();
-
+  const controller = await controllerPromise;
   return controller.fetchFile(path);
 }
 
