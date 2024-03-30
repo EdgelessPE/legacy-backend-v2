@@ -1,4 +1,5 @@
 import Koa from "koa";
+import charset from "koa-charset";
 import Router, { RouterContext } from "koa-router";
 import { API_PREFIX } from "./constants";
 import { serviceRedirect } from "./services/redirect";
@@ -26,10 +27,12 @@ import {
   serviceVentoyPluginAddr,
 } from "./services/ventoy";
 import { serviceCateData, serviceListData } from "./services/plugin";
+import { serviceEptIndex } from "./services/ept";
 
 const PORT = 3000;
 
 const app = new Koa();
+app.use(charset());
 const router = new Router();
 
 const define = (
@@ -61,6 +64,8 @@ define(`${API_PREFIX}/alpha/data`, serviceAlphaData);
 
 define(`${API_PREFIX}/plugin/cateData`, serviceCateData);
 define(`${API_PREFIX}/plugin/listData`, serviceListData);
+
+define(`${API_PREFIX}/ept/index`, serviceEptIndex);
 
 // Result 类型中间件
 app.use(async (ctx, next) => {
