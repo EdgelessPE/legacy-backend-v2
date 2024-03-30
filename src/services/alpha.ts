@@ -32,8 +32,7 @@ export async function serviceAlphaData(ctx: RouterContext) {
     url,
     iso_version: version,
     iso_name: name,
-    iso_url:
-      "https://pineapple.edgeless.top/disk/Socket/Alpha/Edgeless_Alpha_4.1.2.wim",
+    iso_url: url,
     pack_require: "4.1.0",
     pack_name: "Edgeless.7z",
     pack_url: getRedirectUrl("Socket/Alpha/Edgeless.7z"),

@@ -15,6 +15,11 @@ import {
   serviceAlphaData,
   serviceAlphaVersion,
 } from "./services/alpha";
+import {
+  serviceVentoyAddr,
+  serviceVentoyName,
+  serviceVentoyPluginAddr,
+} from "./services/ventoy";
 
 const PORT = 3000;
 
@@ -31,6 +36,7 @@ const define = (
 };
 
 define(`${API_PREFIX}/redirect`, serviceRedirect);
+
 define(`${API_PREFIX}/info/iso_version`, serviceIsoVersion);
 define(`${API_PREFIX}/info/iso_addr`, serviceIsoAddr);
 define(`${API_PREFIX}/info/iso_name`, serviceIsoName);
@@ -38,6 +44,10 @@ define(`${API_PREFIX}/info/iso`, serviceIso);
 define(`${API_PREFIX}/info/hub_version`, serviceHubVersion);
 define(`${API_PREFIX}/info/hub_addr`, serviceHubAddr);
 define(`${API_PREFIX}/info/hub`, serviceHub);
+define(`${API_PREFIX}/info/ventoy_plugin_addr`, serviceVentoyPluginAddr);
+define(`${API_PREFIX}/info/ventoy_addr`, serviceVentoyAddr);
+define(`${API_PREFIX}/info/ventoy_name`, serviceVentoyName);
+
 define(`${API_PREFIX}/alpha/version`, serviceAlphaVersion);
 define(`${API_PREFIX}/alpha/addr`, serviceAlphaAddr);
 define(`${API_PREFIX}/alpha/data`, serviceAlphaData);
