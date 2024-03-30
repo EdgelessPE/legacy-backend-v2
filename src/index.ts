@@ -25,6 +25,7 @@ import {
   serviceVentoyName,
   serviceVentoyPluginAddr,
 } from "./services/ventoy";
+import { serviceCateData, serviceListData } from "./services/plugin";
 
 const PORT = 3000;
 
@@ -57,6 +58,9 @@ define(`${API_PREFIX}/info/ventoy_name`, serviceVentoyName);
 define(`${API_PREFIX}/alpha/version`, serviceAlphaVersion);
 define(`${API_PREFIX}/alpha/addr`, serviceAlphaAddr);
 define(`${API_PREFIX}/alpha/data`, serviceAlphaData);
+
+define(`${API_PREFIX}/plugin/cateData`, serviceCateData);
+define(`${API_PREFIX}/plugin/listData`, serviceListData);
 
 // Result 类型中间件
 app.use(async (ctx, next) => {
