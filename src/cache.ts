@@ -1,5 +1,7 @@
 import { Ok, Result } from "ts-results";
 import { CACHE_INTERVAL } from "./constants";
+import { AxiosResponse } from "axios";
+import { Content } from "./AList";
 
 // 缓存逻辑封装
 function cacheFactory<T>() {
@@ -27,3 +29,35 @@ function cacheFactory<T>() {
 // 实例化的缓存封装
 export const [getRedirectCache] = cacheFactory<string>();
 export const [getAListSign, setAListSign] = cacheFactory<string>();
+export const [getFSListCache] = cacheFactory<
+  AxiosResponse<{
+    code: number;
+    data: {
+      content: Content[];
+      provider: string;
+      readme: string;
+      total: number;
+      write: boolean;
+    };
+    message: string;
+  }>
+>();
+export const [getFSGetCache] = cacheFactory<
+  AxiosResponse<{
+    code: number;
+    data: {
+      is_dir: boolean;
+      modified: string;
+      name: string;
+      provider: string;
+      raw_url: string;
+      readme: string;
+      related: null;
+      sign: string;
+      size: number;
+      thumb: string;
+      type: number;
+    };
+    message: string;
+  }>
+>();

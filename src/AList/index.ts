@@ -1,13 +1,17 @@
 import { ControllerCtx, FileNode, IProxyController } from "./type";
 import { Err, Ok, Result } from "ts-results";
 import axios from "axios";
-import { promise2Result } from "../utils";
 import dayjs from "dayjs";
 import { path_join } from "../utils";
-import { getAListSign, setAListSign } from "../cache";
+import {
+  getAListSign,
+  getFSGetCache,
+  getFSListCache,
+  setAListSign,
+} from "../cache";
 import { ALIST_ROOT } from "../constants";
 
-interface Content {
+export interface Content {
   is_dir: boolean;
   modified: string;
   name: string;
@@ -18,53 +22,61 @@ interface Content {
 }
 
 async function fsList(p: string, { rootUrl }: ControllerCtx) {
-  const apiUrl = path_join(rootUrl, "/api/fs/list");
-  const body: {
-    path: string;
-    password?: string;
-    page?: number;
-    per_page?: number;
-    refresh?: boolean;
-  } = {
-    path: p,
-    page: 1,
-    per_page: 0,
-  };
-  return axios.post<{
-    code: number;
-    data: {
-      content: Content[];
-      provider: string;
-      readme: string;
-      total: number;
-      write: boolean;
+  return getFSListCache(p, async () => {
+    const apiUrl = path_join(rootUrl, "/api/fs/list");
+    const body: {
+      path: string;
+      password?: string;
+      page?: number;
+      per_page?: number;
+      refresh?: boolean;
+    } = {
+      path: p,
+      page: 1,
+      per_page: 0,
     };
-    message: string;
-  }>(apiUrl, body);
+    return new Ok(
+      await axios.post<{
+        code: number;
+        data: {
+          content: Content[];
+          provider: string;
+          readme: string;
+          total: number;
+          write: boolean;
+        };
+        message: string;
+      }>(apiUrl, body),
+    );
+  });
 }
 
 async function fsGet(p: string, { rootUrl }: ControllerCtx) {
-  const apiUrl = path_join(rootUrl, "/api/fs/get");
-  const body: { path: string; password?: string } = {
-    path: p,
-  };
-  return axios.post<{
-    code: number;
-    data: {
-      is_dir: boolean;
-      modified: string;
-      name: string;
-      provider: string;
-      raw_url: string;
-      readme: string;
-      related: null;
-      sign: string;
-      size: number;
-      thumb: string;
-      type: number;
+  return getFSGetCache(p, async () => {
+    const apiUrl = path_join(rootUrl, "/api/fs/get");
+    const body: { path: string; password?: string } = {
+      path: p,
     };
-    message: string;
-  }>(apiUrl, body);
+    return new Ok(
+      await axios.post<{
+        code: number;
+        data: {
+          is_dir: boolean;
+          modified: string;
+          name: string;
+          provider: string;
+          raw_url: string;
+          readme: string;
+          related: null;
+          sign: string;
+          size: number;
+          thumb: string;
+          type: number;
+        };
+        message: string;
+      }>(apiUrl, body),
+    );
+  });
 }
 
 function AListControllerFactory(ctx: ControllerCtx): IProxyController {
@@ -76,7 +88,7 @@ function AListControllerFactory(ctx: ControllerCtx): IProxyController {
     relativePath: string,
   ): Promise<Result<FileNode[], string>> {
     const absPath = join(relativePath);
-    const data = await promise2Result(fsList(absPath, ctx));
+    const data = await fsList(absPath, ctx);
     if (data.err) {
       return data;
     }
@@ -109,7 +121,7 @@ function AListControllerFactory(ctx: ControllerCtx): IProxyController {
     const fetchSign = async (
       absPath: string,
     ): Promise<Result<string, string>> => {
-      const data = await promise2Result(fsGet(absPath, ctx));
+      const data = await fsGet(absPath, ctx);
       if (data.err) {
         return data;
       }
