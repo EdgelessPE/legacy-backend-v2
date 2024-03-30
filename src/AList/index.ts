@@ -137,7 +137,7 @@ function AListControllerFactory(ctx: ControllerCtx): IProxyController {
     if (signRes.err) {
       return signRes;
     }
-    const url = `${path_join(ALIST_ROOT, "d", absPath)}?sign=${signRes.val}`;
+    const url = `${ALIST_ROOT}/${path_join("d", absPath)}?sign=${signRes.val}`;
     return new Ok(url);
   }
 
