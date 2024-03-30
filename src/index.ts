@@ -27,7 +27,7 @@ import {
   serviceVentoyPluginAddr,
 } from "./services/ventoy";
 import { serviceCateData, serviceListData } from "./services/plugin";
-import { serviceEptIndex } from "./services/ept";
+import { serviceEptIndex, serviceEptRedirect } from "./services/ept";
 
 const PORT = 3000;
 
@@ -66,6 +66,7 @@ define(`${API_PREFIX}/plugin/cateData`, serviceCateData);
 define(`${API_PREFIX}/plugin/listData`, serviceListData);
 
 define(`${API_PREFIX}/ept/index`, serviceEptIndex);
+define(`${API_PREFIX}/ept/addr`, serviceEptRedirect);
 
 // Result 类型中间件
 app.use(async (ctx, next) => {
