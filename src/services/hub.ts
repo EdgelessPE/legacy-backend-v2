@@ -1,6 +1,6 @@
 import { Ok } from "ts-results";
 import { getRedirectUrl } from "../utils";
-import { BASE_PATH, HUB_UPDATE_INFO } from "../constants";
+import { BASE_PATH, HUB_NOTICE, HUB_UPDATE_INFO } from "../constants";
 import { matchLatestVersion } from "./utils";
 
 export async function serviceHub() {
@@ -24,4 +24,8 @@ export async function serviceHubVersion() {
 export async function serviceHubAddr() {
   const res = await matchLatestVersion(BASE_PATH.hub, ".7z");
   return res.unwrap().url;
+}
+
+export async function serviceHubNotice() {
+  return new Ok(HUB_NOTICE);
 }

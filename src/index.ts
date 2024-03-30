@@ -9,7 +9,12 @@ import {
   serviceIsoName,
   serviceIsoVersion,
 } from "./services/iso";
-import { serviceHub, serviceHubAddr, serviceHubVersion } from "./services/hub";
+import {
+  serviceHub,
+  serviceHubAddr,
+  serviceHubNotice,
+  serviceHubVersion,
+} from "./services/hub";
 import {
   serviceAlphaAddr,
   serviceAlphaData,
@@ -44,6 +49,7 @@ define(`${API_PREFIX}/info/iso`, serviceIso);
 define(`${API_PREFIX}/info/hub_version`, serviceHubVersion);
 define(`${API_PREFIX}/info/hub_addr`, serviceHubAddr);
 define(`${API_PREFIX}/info/hub`, serviceHub);
+define(`${API_PREFIX}/info/notice`, serviceHubNotice);
 define(`${API_PREFIX}/info/ventoy_plugin_addr`, serviceVentoyPluginAddr);
 define(`${API_PREFIX}/info/ventoy_addr`, serviceVentoyAddr);
 define(`${API_PREFIX}/info/ventoy_name`, serviceVentoyName);
