@@ -1,4 +1,4 @@
-export const PROXY_ROOT = "http://localhost:3000";
+export const PROXY_ROOT = "https://legacy.edgeless.top";
 export const ALIST_ROOT = "https://zfile.edgeless.top";
 export const BASE_PATH = {
   iso: "Socket",
