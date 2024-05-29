@@ -26,6 +26,9 @@ dependencies:
   ts-results:
     specifier: ^3.3.0
     version: 3.3.0
+  tslib:
+    specifier: ^2.6.2
+    version: 2.6.2
 
 devDependencies:
   '@rollup/plugin-terser':
@@ -33,7 +36,7 @@ devDependencies:
     version: 0.4.4(rollup@4.13.0)
   '@rollup/plugin-typescript':
     specifier: ^11.1.6
-    version: 11.1.6(rollup@4.13.0)(typescript@5.4.3)
+    version: 11.1.6(rollup@4.13.0)(tslib@2.6.2)(typescript@5.4.3)
   '@types/koa':
     specifier: ^2.15.0
     version: 2.15.0
@@ -420,7 +423,7 @@ packages:
       terser: 5.29.2
     dev: true
 
-  /@rollup/plugin-typescript@11.1.6(rollup@4.13.0)(typescript@5.4.3):
+  /@rollup/plugin-typescript@11.1.6(rollup@4.13.0)(tslib@2.6.2)(typescript@5.4.3):
     resolution: {integrity: sha512-R92yOmIACgYdJ7dJ97p4K69I8gg6IEHt8M7dUBxN3W6nrO8uUxX5ixl0yU/N3aZTi8WhPuICvOHXQvF6FaykAA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -436,6 +439,7 @@ packages:
       '@rollup/pluginutils': 5.1.0(rollup@4.13.0)
       resolve: 1.22.8
       rollup: 4.13.0
+      tslib: 2.6.2
       typescript: 5.4.3
     dev: true
 
@@ -2305,7 +2309,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-    dev: true
 
   /tsscmp@1.0.6:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
