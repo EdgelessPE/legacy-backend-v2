@@ -41,8 +41,7 @@ const define = (
     ctx: RouterContext,
   ) => Promise<Result<unknown, string> | string | undefined>,
 ) => {
-  router.get(path, service);
-  router.head(path, service);
+  router.all(path, service);
 };
 
 define(`${API_PREFIX}/redirect`, serviceRedirect);
@@ -75,7 +74,9 @@ app.use(async (ctx, next) => {
 
   const handleString = (str: string) => {
     if (str.startsWith("http")) {
-      if (ctx.method === "HEAD") {
+      console.log(`Redirecting to: ${str}`, ctx.method);
+
+      if (ctx.method !== "GET") {
         ctx.set("Location", str);
         ctx.response.status = 200;
         ctx.response.body = "";
