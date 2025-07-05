@@ -15,25 +15,25 @@ export const HUB_UPDATE_INFO = {
 export const ALPHA_TOKEN = "そうだよ";
 export const HUB_NOTICE = [
   {
-    id: "240529",
+    id: "250705",
     channel: "Down",
     a_type: "info",
     show_icon: true,
     message: "Edgeless Hub 更新告示",
     description:
-      "由于服务器调整更新，请尽快将 Edgeless Hub 更新至 2.28 版本，以免影响使用。",
+      "由于镜像站调整更新，请尽快将 Edgeless Hub 更新至 2.30 及以上版本，以免影响使用。",
     close_text: "我知道了",
     lower_than: "0",
   },
   {
-    id: "240529",
+    id: "250705",
     channel: "Hub",
     a_type: "info",
     show_icon: true,
     message: "Edgeless Hub 更新告示",
     description:
-      "由于服务器调整更新，请尽快将 Edgeless Hub 更新至 2.28 版本，以免影响使用。",
+      "由于镜像站调整更新，请尽快将 Edgeless Hub 更新至 2.30 及以上版本，以免影响使用。",
     close_text: "我知道了",
-    lower_than: "2.28",
+    lower_than: "2.30",
   },
 ];
