@@ -74,8 +74,6 @@ app.use(async (ctx, next) => {
 
   const handleString = (str: string) => {
     if (str.startsWith("http")) {
-      console.log(`Redirecting to: ${str}`, ctx.method);
-
       if (ctx.method !== "GET" || ctx.request.headers["x-get-redirect"]) {
         ctx.set("Location", str);
         ctx.response.status = 200;
